@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Flow Planner</title>
+    <meta name="description" content="Build strength, reduce pain, and improve mobility with guided exercises" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="app-container">
+      <!-- Navbar -->
+      <nav class="navbar-custom">
+        <div class="navbar-container">
+          <a href="index.html" class="navbar-brand">
+            <span class="brand-icon">💪</span>
+            Fit Flow
+          </a>
+          
+          <div class="navbar-links">
+            <a href="index.html" class="nav-link active">Exercises</a>
+            <a href="progress.html" class="nav-link">Progress</a>
+            <a href="about.html" class="nav-link">About</a>
+          </div>
+        </div>
+      </nav>
+      
+      <main class="main-content">
+        <header class="page-header">
+          <h1 class="page-title">Exercise Planner</h1>
+          <p className="page-subtitle">
+            Build strength, reduce pain, and improve mobility with guided exercises
+          </p>
+        </header>
+
+        <!-- Filters -->
+        <section aria-label="Exercise filters" class="text-center">
+          <div id="category-filters" class="category-filter">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Exercise Grid -->
+        <section aria-label="Exercise list">
+          <div id="exercise-grid" class="exercise-grid">
+            <!-- Populated by JS -->
+          </div>
+          <div id="empty-state" class="empty-state d-none">
+             <p>No exercises found in this category.</p>
+          </div>
+        </section>
+
+        <div class="results-count" aria-live="polite">
+          Showing <span id="showing-count">0</span> of <span id="total-count">0</span> exercises
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Data -->
+    <script src="assets/js/exercises.js"></script>
+    
+    <!-- Page Logic -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('exercise-grid');
+        const filtersContainer = document.getElementById('category-filters');
+        const emptyState = document.getElementById('empty-state');
+        const showingCount = document.getElementById('showing-count');
+        const totalCount = document.getElementById('total-count');
+        
+        let currentCategory = 'all';
+
+        // Initialize Stats
+        totalCount.textContent = exercises.length;
+
+        // Render Filters
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = `filter-btn ${cat.id === 'all' ? 'active' : ''}`;
+            btn.textContent = cat.label;
+            btn.dataset.id = cat.id;
+            btn.onclick = () => setCategory(cat.id);
+            filtersContainer.appendChild(btn);
+        });
+
+        // Render Exercises
+        function renderExercises() {
+            grid.innerHTML = '';
+            const filtered = currentCategory === 'all' 
+                ? exercises 
+                : exercises.filter(ex => ex.category === currentCategory);
+            
+            if (filtered.length === 0) {
+                emptyState.classList.remove('d-none');
+            } else {
+                emptyState.classList.add('d-none');
+                filtered.forEach(ex => {
+                    const card = document.createElement('a');
+                    card.href = `exercise-details.html?id=${ex.id}`;
+                    card.className = 'exercise-card';
+                    card.innerHTML = `
+                        <div class="exercise-card-header">
+                            <span class="category-badge category-${ex.category}">
+                                ${ex.categoryLabel}
+                            </span>
+                        </div>
+                        <h3 class="exercise-card-title">${ex.name}</h3>
+                        <div class="exercise-card-meta">
+                            <span>⏱️ ${ex.duration}s</span>
+                        </div>
+                        <div class="exercise-card-btn">
+                            <span class="btn btn-sm btn-secondary w-100">Start</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+            showingCount.textContent = filtered.length;
+        }
+
+        function setCategory(id) {
+            currentCategory = id;
+            
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.id === id) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            renderExercises();
+        }
+
+        // Initial Render
+        renderExercises();
+      });
+    </script>
+  </body>
+</html>

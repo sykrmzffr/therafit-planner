@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Details - Fit Flow</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Navbar -->
+        <nav class="navbar-custom">
+            <div class="navbar-container">
+                <a href="index.html" class="navbar-brand">
+                    <span class="brand-icon">💪</span>
+                    Fit Flow
+                </a>
+
+                <div class="navbar-links">
+                    <a href="index.html" class="nav-link">Exercises</a>
+                    <a href="progress.html" class="nav-link">Progress</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <nav class="breadcrumb mb-4" aria-label="Breadcrumb">
+                <a href="index.html" class="breadcrumb-link">
+                    ← Back to Exercises
+                </a>
+            </nav>
+
+            <div id="loading" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div id="error-state" class="error-state d-none">
+                <h1>Exercise Not Found</h1>
+                <p>The exercise you're looking for doesn't exist.</p>
+                <a href="index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+
+            <article id="exercise-content" class="exercise-detail d-none">
+                <header class="exercise-detail-header">
+                    <span id="ex-category-badge" class="category-badge mb-2"></span>
+                    <h1 id="ex-title" class="exercise-detail-title"></h1>
+                    <div class="exercise-detail-meta">
+                        <span>⏱️ Duration: <span id="ex-duration"></span> seconds</span>
+                    </div>
+                </header>
+
+                <div class="exercise-detail-image mb-4">
+                    <img id="ex-image" src="" alt="Exercise demonstration" class="exercise-image">
+                </div>
+
+                <section class="exercise-instructions mb-5">
+                    <h2>Instructions</h2>
+                    <ol id="ex-instructions" class="instructions-list">
+                        <!-- Populated by JS -->
+                    </ol>
+                </section>
+
+                <section class="exercise-timer-section mb-5">
+                    <h2>Exercise Timer</h2>
+                    <div class="timer">
+                        <div class="timer-display">
+                            <div id="timer-progress" class="timer-progress" style="width: 0%"></div>
+                            <span id="timer-text" class="timer-text">0:00</span>
+                        </div>
+
+                        <div class="timer-controls justify-content-center d-flex gap-2">
+                            <button id="btn-start" class="btn btn-success timer-btn">▶ Start</button>
+                            <button id="btn-pause" class="btn btn-warning timer-btn d-none">⏸ Pause</button>
+                            <button id="btn-reset" class="btn btn-secondary timer-btn" disabled>↺ Reset</button>
+                        </div>
+
+                        <p id="timer-complete-msg" class="timer-complete d-none mt-3">✓ Timer complete!</p>
+                    </div>
+                </section>
+
+                <section class="exercise-completion text-center p-4 bg-light rounded">
+                    <div id="completion-action">
+                        <button id="btn-mark-complete" class="btn btn-success btn-lg">
+                            ✓ Mark as Completed
+                        </button>
+                    </div>
+
+                    <div id="completion-status" class="completion-status completed d-none">
+                        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+                            <span class="text-success fs-5 fw-bold">✓ Completed today!</span>
+                        </div>
+                        <button id="btn-undo-complete" class="btn btn-secondary btn-sm">Undo</button>
+                    </div>
+
+                    <div id="toast-success" class="confirmation-toast d-none">
+                        ✓ Exercise marked as completed!
+                    </div>
+                </section>
+            </article>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/exercises.js"></script>
+    <script src="assets/js/progress.js"></script>
+    <script src="assets/js/timer.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            const exercise = exercises.find(ex => ex.id === id);
+
+            const loading = document.getElementById('loading');
+            const errorState = document.getElementById('error-state');
+            const content = document.getElementById('exercise-content');
+
+            if (!exercise) {
+                loading.classList.add('d-none');
+                errorState.classList.remove('d-none');
+                return;
+            }
+
+            // Bind Data
+            document.title = `${exercise.name} - Fit Flow`;
+            document.getElementById('ex-title').textContent = exercise.name;
+            document.getElementById('ex-duration').textContent = exercise.duration;
+            document.getElementById('ex-image').src = exercise.image;
+
+            const badge = document.getElementById('ex-category-badge');
+            badge.textContent = exercise.categoryLabel;
+            badge.className = `category-badge category-${exercise.category} mb-2`;
+
+            const instrList = document.getElementById('ex-instructions');
+            exercise.instructions.forEach((step, index) => {
+                const li = document.createElement('li');
+                li.className = 'instruction-item';
+                li.innerHTML = `
+                    <span class="instruction-number">${index + 1}</span>
+                    <span class="instruction-text">${step}</span>
+                `;
+                instrList.appendChild(li);
+            });
+
+            // Timer Setup
+            const timer = new ExerciseTimer(
+                exercise.duration,
+                document.getElementById('timer-text'),
+                document.getElementById('timer-progress'),
+                () => {
+                    document.getElementById('timer-complete-msg').classList.remove('d-none');
+                    if (!ProgressManager.isCompletedToday(exercise.id)) {
+                        markComplete();
+                        showToast();
+                    }
+                }
+            );
+
+            timer.bindControls(
+                document.getElementById('btn-start'),
+                document.getElementById('btn-pause'),
+                document.getElementById('btn-reset')
+            );
+
+            // Completion Logic
+            const btnMark = document.getElementById('btn-mark-complete');
+            const btnUndo = document.getElementById('btn-undo-complete');
+            const actionDiv = document.getElementById('completion-action');
+            const statusDiv = document.getElementById('completion-status');
+            const toast = document.getElementById('toast-success');
+
+            function updateUI() {
+                if (ProgressManager.isCompletedToday(exercise.id)) {
+                    actionDiv.classList.add('d-none');
+                    statusDiv.classList.remove('d-none');
+                } else {
+                    actionDiv.classList.remove('d-none');
+                    statusDiv.classList.add('d-none');
+                }
+            }
+
+            function markComplete() {
+                ProgressManager.markAsCompleted(exercise.id, exercise.name);
+                updateUI();
+            }
+
+            function showToast() {
+                toast.classList.remove('d-none');
+                setTimeout(() => toast.classList.add('d-none'), 3000);
+            }
+
+            btnMark.onclick = () => {
+                markComplete();
+                showToast();
+            };
+
+            btnUndo.onclick = () => {
+                ProgressManager.removeCompletion(exercise.id);
+                updateUI();
+            };
+
+            // Init
+            updateUI();
+            loading.classList.add('d-none');
+            content.classList.remove('d-none');
+        });
+    </script>
+</body>
+
+</html>
