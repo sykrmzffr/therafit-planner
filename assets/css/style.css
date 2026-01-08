@@ -1,0 +1,346 @@
+/* Fitness & Physiotherapy Exercise Planner Design System */
+
+:root {
+  /* Core Colors - Calm, therapeutic palette */
+  --background: 180 20% 99%;
+  --foreground: 200 25% 15%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 200 25% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 200 25% 15%;
+
+  /* Primary - Calming teal */
+  --primary: 174 60% 40%;
+  --primary-foreground: 0 0% 100%;
+  --primary-light: 174 50% 92%;
+
+  /* Secondary - Soft neutral */
+  --secondary: 200 15% 94%;
+  --secondary-foreground: 200 25% 25%;
+
+  --muted: 200 15% 96%;
+  --muted-foreground: 200 10% 45%;
+
+  --accent: 174 45% 88%;
+  --accent-foreground: 174 60% 25%;
+
+  --destructive: 0 65% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 160 60% 40%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 38 90% 50%;
+  --warning-foreground: 38 90% 15%;
+
+  --border: 200 20% 88%;
+  --input: 200 20% 88%;
+  --ring: 174 60% 40%;
+
+  --radius: 0.75rem;
+
+  /* Category Colors */
+  --category-back-pain: 0 65% 55%;
+  --category-knee-pain: 280 60% 50%;
+  --category-stretching: 200 70% 50%;
+  --category-muscle-strength: 30 80% 50%;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --container-max: 1200px;
+  --section-spacing: 3rem;
+}
+
+.dark {
+  --background: 200 25% 10%;
+  --foreground: 180 15% 95%;
+
+  --card: 200 25% 14%;
+  --card-foreground: 180 15% 95%;
+
+  --popover: 200 25% 14%;
+  --popover-foreground: 180 15% 95%;
+
+  --primary: 174 55% 50%;
+  --primary-foreground: 200 25% 10%;
+  --primary-light: 174 40% 20%;
+
+  --secondary: 200 20% 20%;
+  --secondary-foreground: 180 15% 90%;
+
+  --muted: 200 20% 18%;
+  --muted-foreground: 200 10% 60%;
+
+  --accent: 174 40% 25%;
+  --accent-foreground: 174 50% 80%;
+
+  --destructive: 0 60% 45%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 160 50% 45%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 38 80% 45%;
+  --warning-foreground: 0 0% 100%;
+
+  --border: 200 20% 22%;
+  --input: 200 20% 22%;
+  --ring: 174 55% 50%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  font-size: 16px; /* Bootstrap default is usually 16px, user had 18px. I'll stick to 16px to play nice with Bootstrap but can override if needed */
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+
+/* App Container */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar-custom { /* Renamed to avoid bootstrap conflict if we used .navbar */
+  background: hsl(var(--card));
+  border-bottom: 1px solid hsl(var(--border));
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px hsl(var(--foreground) / 0.05);
+}
+
+.navbar-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.navbar-brand:hover {
+  opacity: 0.8;
+  color: hsl(var(--primary));
+}
+
+.brand-icon {
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.nav-link.active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.nav-link.active:hover {
+  background: hsl(var(--primary));
+  opacity: 0.9;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: var(--section-spacing);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Category Filter */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius);
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-decoration: none; /* In case we use <a> tags */
+  display: inline-block;
+}
+
+.filter-btn:hover {
+  background: hsl(var(--accent));
+  border-color: hsl(var(--primary) / 0.3);
+  color: hsl(var(--secondary-foreground));
+}
+
+.filter-btn.active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+
+/* Exercise Grid */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Exercise Card */
+.exercise-card {
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid hsl(var(--border));
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px hsl(var(--foreground) / 0.04);
+  text-decoration: none; /* Link reset */
+  color: inherit;
+}
+
+.exercise-card:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 4px 16px hsl(var(--primary) / 0.1);
+  transform: translateY(-2px);
+}
+
+.exercise-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.category-back-pain {
+  background: hsl(var(--category-back-pain) / 0.15);
+  color: hsl(var(--category-back-pain));
+}
+
+.category-knee-pain {
+  background: hsl(var(--category-knee-pain) / 0.15);
+  color: hsl(var(--category-knee-pain));
+}
+
+.category-stretching {
+  background: hsl(var(--category-stretching) / 0.15);
+  color: hsl(var(--category-stretching));
+}
+
+.category-muscle-strength {
+  background: hsl(var(--category-muscle-strength) / 0.15);
+  color: hsl(var(--category-muscle-strength));
+}
+
+.exercise-card-title {
+  font-size: 1.25rem;
+  color: hsl(var(--card-foreground));
+  margin: 0;
+}
+
+.exercise-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+}
+
+.exercise-card-btn {
+  margin-top: auto;
+}
+
+/* Reusable Utilities */
+.text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+}
