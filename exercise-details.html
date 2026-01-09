@@ -66,13 +66,100 @@
                     <img id="ex-image" src="" alt="Exercise demonstration" class="exercise-image">
                 </div>
 
+                <!-- Instructions -->
                 <section class="exercise-instructions mb-5">
                     <h2>Instructions</h2>
-                    <ol id="ex-instructions" class="instructions-list">
-                        <!-- Populated by JS -->
-                    </ol>
+                    <ol id="ex-instructions" class="instructions-list"></ol>
                 </section>
 
+                <!-- Physiotherapy Guidance (ADDED SECTION) -->
+                <section class="physio-guidance mb-5">
+                    <h2 class="mb-3">Physiotherapy Guidance</h2>
+
+                    <div class="accordion" id="physioAccordion">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingBenefits">
+                                <button class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBenefits"
+                                    aria-expanded="true"
+                                    aria-controls="collapseBenefits">
+                                    🩺 Therapeutic Benefits
+                                </button>
+                            </h2>
+                            <div id="collapseBenefits"
+                                class="accordion-collapse collapse show"
+                                aria-labelledby="headingBenefits"
+                                data-bs-parent="#physioAccordion">
+                                <div class="accordion-body">
+                                    This exercise supports physiotherapy objectives by
+                                    enhancing mobility, improving muscle control, and
+                                    promoting safe functional movement. It is suitable for
+                                    rehabilitation, injury prevention, and recovery-focused
+                                    exercise programs.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingRecovery">
+                                <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseRecovery"
+                                    aria-expanded="false"
+                                    aria-controls="collapseRecovery">
+                                    💪 Targeted Muscles & Recovery
+                                </button>
+                            </h2>
+                            <div id="collapseRecovery"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingRecovery"
+                                data-bs-parent="#physioAccordion">
+                                <div class="accordion-body">
+                                    This exercise targets stabilizing and support muscles
+                                    commonly addressed in physiotherapy sessions. Consistent
+                                    performance can help restore strength, improve posture,
+                                    and assist in returning to daily activities safely.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSafety">
+                                <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSafety"
+                                    aria-expanded="false"
+                                    aria-controls="collapseSafety">
+                                    ⚠️ Safety & Physiotherapy Advice
+                                </button>
+                            </h2>
+                            <div id="collapseSafety"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingSafety"
+                                data-bs-parent="#physioAccordion">
+                                <div class="accordion-body">
+                                    <ul class="mb-0">
+                                        <li>Perform movements slowly and with control.</li>
+                                        <li>Avoid pushing through pain or discomfort.</li>
+                                        <li>Maintain correct posture and breathing.</li>
+                                        <li>Consult a physiotherapist before progressing.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="alert alert-info mt-4" role="alert">
+                        ℹ️ This exercise may be used in physiotherapy or rehabilitation
+                        programs and should be adapted based on individual needs and
+                        professional guidance.
+                    </div>
+                </section>
+
+                <!-- Exercise Timer -->
                 <section class="exercise-timer-section mb-5">
                     <h2>Exercise Timer</h2>
                     <div class="timer">
@@ -87,10 +174,13 @@
                             <button id="btn-reset" class="btn btn-secondary timer-btn" disabled>↺ Reset</button>
                         </div>
 
-                        <p id="timer-complete-msg" class="timer-complete d-none mt-3">✓ Timer complete!</p>
+                        <p id="timer-complete-msg" class="timer-complete d-none mt-3">
+                            ✓ Timer complete!
+                        </p>
                     </div>
                 </section>
 
+                <!-- Completion -->
                 <section class="exercise-completion text-center p-4 bg-light rounded">
                     <div id="completion-action">
                         <button id="btn-mark-complete" class="btn btn-success btn-lg">
@@ -113,6 +203,7 @@
         </main>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/exercises.js"></script>
     <script src="assets/js/progress.js"></script>
@@ -134,7 +225,6 @@
                 return;
             }
 
-            // Bind Data
             document.title = `${exercise.name} - Fit Flow`;
             document.getElementById('ex-title').textContent = exercise.name;
             document.getElementById('ex-duration').textContent = exercise.duration;
@@ -155,7 +245,6 @@
                 instrList.appendChild(li);
             });
 
-            // Timer Setup
             const timer = new ExerciseTimer(
                 exercise.duration,
                 document.getElementById('timer-text'),
@@ -163,8 +252,11 @@
                 () => {
                     document.getElementById('timer-complete-msg').classList.remove('d-none');
                     if (!ProgressManager.isCompletedToday(exercise.id)) {
-                        markComplete();
-                        showToast();
+                        ProgressManager.markAsCompleted(exercise.id, exercise.name);
+                        document.getElementById('toast-success').classList.remove('d-none');
+                        setTimeout(() => {
+                            document.getElementById('toast-success').classList.add('d-none');
+                        }, 3000);
                     }
                 }
             );
