@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
     <title>Your Progress - TheraFit</title>
 
     <!-- Bootstrap CSS -->
@@ -172,6 +171,16 @@
             };
         });
     </script>
-</body>
 
+    <!--Adding footer -->
+    <div id="footer"></div>
+    <script>
+    fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+      });
+    </script>
+
+</body>
 </html>
