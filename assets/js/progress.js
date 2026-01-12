@@ -32,12 +32,9 @@ const ProgressManager = {
             ex => ex.id === id && new Date(ex.completedAt).toDateString() === today
         );
     },
-
+    
     removeCompletion(id) {
         let completed = this.getCompleted();
-        // This removes ALL completions for this ID? The React hook implementation:
-        // setCompletedExercises(prev => prev.filter(ex => ex.id !== id));
-        // Yes, it removes all history val for that ID.
         completed = completed.filter(ex => ex.id !== id);
         this.saveCompleted(completed);
     },

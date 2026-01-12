@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
     <title>Exercise Details - TheraFit</title>
 
     <!-- Bootstrap CSS -->
@@ -23,7 +22,7 @@
         <nav class="navbar-custom">
             <div class="navbar-container">
                 <a href="index.html" class="navbar-brand">
-                <img src="images/logo.png" alt="TheraFit Logo" class="brand-icon">
+                    <img src="images/logo.png" alt="TheraFit Logo" class="brand-icon">
                 </a>
 
                 <div class="navbar-links">
@@ -57,7 +56,8 @@
                 </header>
 
                 <div class="exercise-detail-image mb-4">
-                    <img id="ex-image" src="" alt="Exercise demonstration" class="exercise-image">
+                    <img id="ex-image" src="" alt="Exercise demonstration" class="img-fluid rounded" 
+                    style="height:600px; object-fit:cover;">
                 </div>
 
                 <!-- Instructions -->
@@ -66,90 +66,72 @@
                     <ol id="ex-instructions" class="instructions-list"></ol>
                 </section>
 
-                <!-- Physiotherapy Guidance (ADDED SECTION) -->
+                <!-- Physiotherapy Guidance -->
                 <section class="physio-guidance mb-5">
                     <h2 class="mb-3">Physiotherapy Guidance</h2>
 
                     <div class="accordion" id="physioAccordion">
-
+                        <!-- Therapeutic Benefits -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingBenefits">
-                                <button class="accordion-button" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBenefits"
-                                    aria-expanded="true"
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseBenefits" aria-expanded="true"
                                     aria-controls="collapseBenefits">
                                     🩺 Therapeutic Benefits
                                 </button>
                             </h2>
-                            <div id="collapseBenefits"
-                                class="accordion-collapse collapse show"
-                                aria-labelledby="headingBenefits"
-                                data-bs-parent="#physioAccordion">
-                                <div class="accordion-body">
-                                    This exercise supports physiotherapy objectives by
-                                    enhancing mobility, improving muscle control, and
-                                    promoting safe functional movement. It is suitable for
-                                    rehabilitation, injury prevention, and recovery-focused
-                                    exercise programs.
+                            <div id="collapseBenefits" class="accordion-collapse collapse show"
+                                aria-labelledby="headingBenefits" data-bs-parent="#physioAccordion">
+                                <div class="accordion-body" id="physio-benefits">
+                                    <!-- Filled dynamically -->
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Targeted Muscles & Recovery -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingRecovery">
-                                <button class="accordion-button collapsed" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseRecovery"
-                                    aria-expanded="false"
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseRecovery" aria-expanded="false"
                                     aria-controls="collapseRecovery">
                                     💪 Targeted Muscles & Recovery
                                 </button>
                             </h2>
-                            <div id="collapseRecovery"
-                                class="accordion-collapse collapse"
-                                aria-labelledby="headingRecovery"
-                                data-bs-parent="#physioAccordion">
-                                <div class="accordion-body">
-                                    This exercise targets stabilizing and support muscles
-                                    commonly addressed in physiotherapy sessions. Consistent
-                                    performance can help restore strength, improve posture,
-                                    and assist in returning to daily activities safely.
+                            <div id="collapseRecovery" class="accordion-collapse collapse"
+                                aria-labelledby="headingRecovery" data-bs-parent="#physioAccordion">
+                                <div class="accordion-body" id="physio-recovery">
+                                    <!-- Text filled dynamically -->
+                                    <div class="mt-3 text-center">
+                                        <img id="physio-muscle-img" src="" alt="Targeted Muscle"
+                                            class="rounded mx-auto d-block" style="max-width: 250px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Safety Advice -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingSafety">
-                                <button class="accordion-button collapsed" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseSafety"
-                                    aria-expanded="false"
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSafety" aria-expanded="false"
                                     aria-controls="collapseSafety">
                                     ⚠️ Safety & Physiotherapy Advice
                                 </button>
                             </h2>
-                            <div id="collapseSafety"
-                                class="accordion-collapse collapse"
-                                aria-labelledby="headingSafety"
+                            <div id="collapseSafety" class="accordion-collapse collapse" aria-labelledby="headingSafety"
                                 data-bs-parent="#physioAccordion">
                                 <div class="accordion-body">
-                                    <ul class="mb-0">
-                                        <li>Perform movements slowly and with control.</li>
-                                        <li>Avoid pushing through pain or discomfort.</li>
-                                        <li>Maintain correct posture and breathing.</li>
-                                        <li>Consult a physiotherapist before progressing.</li>
+                                    <ul class="mb-0" id="physio-safety">
+                                        <!-- Filled dynamically -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="alert alert-info mt-4" role="alert">
-                        ℹ️ This exercise may be used in physiotherapy or rehabilitation
-                        programs and should be adapted based on individual needs and
-                        professional guidance.
+                        ℹ️ This exercise may be used in physiotherapy or rehabilitation programs and should be
+                        adapted based on individual needs and professional guidance.
                     </div>
                 </section>
 
@@ -188,10 +170,6 @@
                         </div>
                         <button id="btn-undo-complete" class="btn btn-secondary btn-sm">Undo</button>
                     </div>
-
-                    <div id="toast-success" class="confirmation-toast d-none">
-                        ✓ Exercise marked as completed!
-                    </div>
                 </section>
             </article>
         </main>
@@ -229,29 +207,59 @@
             badge.className = `category-badge category-${exercise.category} mb-2`;
 
             const instrList = document.getElementById('ex-instructions');
-            exercise.instructions.forEach((step, index) => {
+            exercise.instructions.forEach(step => {
                 const li = document.createElement('li');
                 li.className = 'instruction-item';
-                li.innerHTML = `
-                    <span class="instruction-number">${index + 1}</span>
-                    <span class="instruction-text">${step}</span>
-                `;
+                li.innerHTML = `<span class="instruction-text">${step}</span>`;
                 instrList.appendChild(li);
             });
 
+            /*--------------- PHYSIO -----------------*/
+            if (exercise.physio) {
+                // Benefits
+                document.getElementById('physio-benefits').textContent = exercise.physio.benefits;
+
+                // Recovery text
+                const recoveryDiv = document.getElementById('physio-recovery');
+                recoveryDiv.innerHTML = ''; // clear previous content
+
+                const recoveryText = document.createElement('p');
+                recoveryText.textContent = exercise.physio.recovery;
+                recoveryDiv.appendChild(recoveryText);
+
+                // Muscle image
+                if (exercise.physio.image) {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'mt-3 text-center';
+
+                    const img = document.createElement('img');
+                    img.src = exercise.physio.image;
+                    img.alt = `${exercise.name} Targeted Muscle`;
+                    img.className = 'rounded mx-auto d-block';
+                    img.style.maxWidth = '250px'; // smaller image size
+
+                    imgDiv.appendChild(img);
+                    recoveryDiv.appendChild(imgDiv);
+                }
+
+                // Safety list
+                const safetyList = document.getElementById('physio-safety');
+                safetyList.innerHTML = "";
+                exercise.physio.safety.forEach(tip => {
+                    const li = document.createElement('li');
+                    li.textContent = tip;
+                    safetyList.appendChild(li);
+                });
+            }
+
+            /* ---------------- TIMER ---------------- */
             const timer = new ExerciseTimer(
                 exercise.duration,
                 document.getElementById('timer-text'),
                 document.getElementById('timer-progress'),
                 () => {
                     document.getElementById('timer-complete-msg').classList.remove('d-none');
-                    if (!ProgressManager.isCompletedToday(exercise.id)) {
-                        ProgressManager.markAsCompleted(exercise.id, exercise.name);
-                        document.getElementById('toast-success').classList.remove('d-none');
-                        setTimeout(() => {
-                            document.getElementById('toast-success').classList.add('d-none');
-                        }, 3000);
-                    }
+                    markCompleted();
                 }
             );
 
@@ -261,10 +269,50 @@
                 document.getElementById('btn-reset')
             );
 
+            /* ---------------- COMPLETION LOGIC ---------------- */
+            const btnComplete = document.getElementById('btn-mark-complete');
+            const btnUndo = document.getElementById('btn-undo-complete');
+            const completionAction = document.getElementById('completion-action');
+            const completionStatus = document.getElementById('completion-status');
+
+            function markCompleted() {
+                if (ProgressManager.isCompletedToday(exercise.id)) return;
+
+                ProgressManager.markAsCompleted(exercise.id, exercise.name);
+
+                completionAction.classList.add('d-none');
+                completionStatus.classList.remove('d-none');
+            }
+
+            function undoCompleted() {
+                ProgressManager.removeCompletion(exercise.id);
+                completionStatus.classList.add('d-none');
+                completionAction.classList.remove('d-none');
+            }
+
+            btnComplete.addEventListener('click', markCompleted);
+            btnUndo.addEventListener('click', undoCompleted);
+
+            /* Restore state if already completed today */
+            if (ProgressManager.isCompletedToday(exercise.id)) {
+                completionAction.classList.add('d-none');
+                completionStatus.classList.remove('d-none');
+            }
+
             loading.classList.add('d-none');
             content.classList.remove('d-none');
         });
     </script>
-</body>
 
+    <!-- Adding footer -->
+    <div id="footer"></div>
+    <script>
+        fetch("footer.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            });
+    </script>
+
+</body>
 </html>
