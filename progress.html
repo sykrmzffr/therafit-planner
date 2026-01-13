@@ -51,15 +51,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="progress-card">
-                        <span class="fs-1 text-primary">📅</span>
-                        <div>
-                            <div class="progress-number" id="stat-unique">0</div>
-                            <div class="text-muted">Unique Exercises</div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
 
@@ -166,8 +157,11 @@
                 completed.map(ex => ex.id)
             ).size;
 
-            document.getElementById('stat-total').textContent = totalCompletions;
-            document.getElementById('stat-unique').textContent = uniqueExercises;
+            const statTotalEl = document.getElementById('stat-total');
+            if (statTotalEl) statTotalEl.textContent = totalCompletions;
+
+            const statUniqueEl = document.getElementById('stat-unique');
+            if (statUniqueEl) statUniqueEl.textContent = uniqueExercises;
 
             /* ================= EXISTING LOGIC ================= */
             const completedIds = completed.map(e => e.id);
@@ -196,7 +190,6 @@
         <input type="checkbox"
                value="${ex.id}"
                ${isSelected || isDone ? 'checked' : ''}
-               ${isDone ? 'disabled' : ''}>
       </div>
     `;
                 modalList.appendChild(col);
@@ -237,8 +230,8 @@
         <div class="card h-100">
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <strong>${ex.name}</strong>
-              <input type="checkbox" ${done ? 'checked disabled' : ''}>
+              <strong><a href="exercise-details.html?id=${ex.id}" class="text-decoration-none">${ex.name}</a></strong>
+              <input type="checkbox" ${done ? 'checked' : ''} disabled>
             </div>
 
             <div class="progress mt-2">
@@ -262,7 +255,7 @@
             if (completed.length === 0) {
                 emptyHistory.classList.remove('d-none');
             } else {
-                completed.slice().reverse().forEach((ex, i) => {
+                completed.slice().forEach((ex, i) => {
                     const id = `collapse-${ex.id}-${i}`;
 
                     // 🔹 Fetch duration from index (exercises.js)
@@ -273,11 +266,14 @@
                     li.className = 'list-group-item';
 
                     li.innerHTML = `
-      <a data-bs-toggle="collapse"
-         href="#${id}"
-         class="fw-semibold text-decoration-none">
-        ${ex.name}
-      </a>
+      <div class="d-flex align-items-center">
+        <span class="text-secondary fw-bold me-2">#${i + 1}</span>
+        <a data-bs-toggle="collapse"
+           href="#${id}"
+           class="fw-semibold text-decoration-none flex-grow-1">
+          ${ex.name}
+        </a>
+      </div>
 
       <div class="collapse mt-2" id="${id}">
         <div class="card card-body p-2">
