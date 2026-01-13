@@ -434,13 +434,12 @@ h6 {
 }
 
 /* Info alert enhancement */
+
 .physio-guidance .alert-info {
   border-radius: 12px;
   background-color: #e9faff;
   border: none;
 }
-
-
 
 /* Exercise Card Image */
 .exercise-card-image-container {
@@ -466,4 +465,28 @@ h6 {
     border-right: 1px solid hsl(var(--border));
   }
 }
+/* Progress Page Stats */
+.progress-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 1px 3px hsl(var(--foreground) / 0.05);
+  transition: transform 0.2s;
+}
+
+.progress-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px hsl(var(--foreground) / 0.05);
+}
+
+.progress-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.25rem;
 }
