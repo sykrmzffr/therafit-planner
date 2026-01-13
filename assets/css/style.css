@@ -98,7 +98,8 @@
 }
 
 html {
-  font-size: 16px; /* Bootstrap default is usually 16px, user had 18px. I'll stick to 16px to play nice with Bootstrap but can override if needed */
+  font-size: 16px;
+  /* Bootstrap default is usually 16px, user had 18px. I'll stick to 16px to play nice with Bootstrap but can override if needed */
   scroll-behavior: smooth;
 }
 
@@ -111,7 +112,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.3;
@@ -126,7 +132,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Navbar */
-.navbar-custom { /* Renamed to avoid bootstrap conflict if we used .navbar */
+.navbar-custom {
+  /* Renamed to avoid bootstrap conflict if we used .navbar */
   background: hsl(var(--card));
   border-bottom: 1px solid hsl(var(--border));
   position: sticky;
@@ -240,7 +247,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9375rem;
   font-weight: 500;
   transition: all 0.2s;
-  text-decoration: none; /* In case we use <a> tags */
+  text-decoration: none;
+  /* In case we use <a> tags */
   display: inline-block;
 }
 
@@ -274,7 +282,8 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.75rem;
   transition: all 0.2s;
   box-shadow: 0 2px 8px hsl(var(--foreground) / 0.04);
-  text-decoration: none; /* Link reset */
+  text-decoration: none;
+  /* Link reset */
   color: inherit;
 }
 
@@ -342,7 +351,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Reusable Utilities */
 .text-muted-foreground {
-    color: hsl(var(--muted-foreground));
+  color: hsl(var(--muted-foreground));
 }
 
 .brand-icon {
@@ -368,67 +377,116 @@ h1, h2, h3, h4, h5, h6 {
 /* physio */
 
 .physio-guidance .card {
-    border-radius: 16px;
-    background: #ffffff;
+  border-radius: 16px;
+  background: #ffffff;
 }
 
 .physio-guidance h2 {
-    letter-spacing: 0.3px;
+  letter-spacing: 0.3px;
 }
 
 /* Accordion styling */
 .physio-guidance .accordion-item {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 12px;
-    border: 1px solid #e6eaf0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid #e6eaf0;
 }
 
 .physio-guidance .accordion-button {
-    font-weight: 600;
-    padding: 1rem 1.25rem;
-    background-color: #f8f9fc;
-    transition: background-color 0.3s ease;
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  background-color: #f8f9fc;
+  transition: background-color 0.3s ease;
 }
 
 .physio-guidance .accordion-button:not(.collapsed) {
-    background-color: #e7f1ff;
-    color: #0d6efd;
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  background-color: #e7f1ff;
+  color: #0d6efd;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .physio-guidance .accordion-button:focus {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .physio-guidance .accordion-body {
-    padding: 1.25rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #333;
+  padding: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
 }
 
 /* Recovery image styling */
 .physio-guidance img {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .physio-guidance img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  transform: scale(1.03);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Safety list */
 #physio-safety li {
-    margin-bottom: 0.5rem;
-    padding-left: 0.25rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
 }
 
 /* Info alert enhancement */
+
 .physio-guidance .alert-info {
-    border-radius: 12px;
-    background-color: #e9faff;
-    border: none;
+  border-radius: 12px;
+  background-color: #e9faff;
+  border: none;
 }
 
+/* Exercise Card Image */
+.exercise-card-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
 
+.exercise-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.exercise-card:hover .exercise-card-img {
+  transform: scale(1.05);
+/* Responsive Border for About Page Split */
+@media (min-width: 768px) {
+  .border-md-end {
+    border-right: 1px solid hsl(var(--border));
+  }
+}
+/* Progress Page Stats */
+.progress-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 1px 3px hsl(var(--foreground) / 0.05);
+  transition: transform 0.2s;
+}
+
+.progress-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px hsl(var(--foreground) / 0.05);
+}
+
+.progress-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.25rem;
+}

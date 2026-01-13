@@ -141,7 +141,7 @@
                     <div class="timer">
                         <div class="timer-display">
                             <div id="timer-progress" class="timer-progress" style="width: 0%"></div>
-                            <span id="timer-text" class="timer-text">0:00</span>
+                            <span id="timer-text" class="timer-text" style="font-size:4rem; font-weight:700; letter-spacing:2px; color: rgb(239, 177, 70);"> 0:00</span>
                         </div>
 
                         <div class="timer-controls justify-content-center d-flex gap-2">
@@ -221,26 +221,41 @@
 
                 // Recovery text
                 const recoveryDiv = document.getElementById('physio-recovery');
-                recoveryDiv.innerHTML = ''; // clear previous content
+                recoveryDiv.innerHTML = ''; // same behavior, not removed
 
+                // Bootstrap row
+                const row = document.createElement('div');
+                row.className = 'row align-items-center';
+
+                // LEFT: Image column
+                const imgCol = document.createElement('div');
+                imgCol.className = 'col-md-4 text-center';
+
+                // RIGHT: Text column
+                const textCol = document.createElement('div');
+                textCol.className = 'col-md-8';
+
+                // Recovery text
                 const recoveryText = document.createElement('p');
                 recoveryText.textContent = exercise.physio.recovery;
-                recoveryDiv.appendChild(recoveryText);
+                textCol.appendChild(recoveryText);
 
-                // Muscle image
+                // Image (uses SAME image, SAME data)
                 if (exercise.physio.image) {
-                    const imgDiv = document.createElement('div');
-                    imgDiv.className = 'mt-3 text-center';
-
                     const img = document.createElement('img');
                     img.src = exercise.physio.image;
                     img.alt = `${exercise.name} Targeted Muscle`;
-                    img.className = 'rounded mx-auto d-block';
-                    img.style.maxWidth = '250px'; // smaller image size
-
-                    imgDiv.appendChild(img);
-                    recoveryDiv.appendChild(imgDiv);
+                    img.className = 'img-fluid rounded';
+                    img.style.width = '100%';
+                    img.style.height = '280px';      // SAME height for all
+                    img.style.objectFit = 'cover';   
+                    imgCol.appendChild(img);
                 }
+                // Assemble
+                row.appendChild(imgCol);
+                row.appendChild(textCol);
+                recoveryDiv.appendChild(row);
+
 
                 // Safety list
                 const safetyList = document.getElementById('physio-safety');
