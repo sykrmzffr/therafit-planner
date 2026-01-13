@@ -98,7 +98,8 @@
 }
 
 html {
-  font-size: 16px; /* Bootstrap default is usually 16px, user had 18px. I'll stick to 16px to play nice with Bootstrap but can override if needed */
+  font-size: 16px;
+  /* Bootstrap default is usually 16px, user had 18px. I'll stick to 16px to play nice with Bootstrap but can override if needed */
   scroll-behavior: smooth;
 }
 
@@ -111,7 +112,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.3;
@@ -126,7 +132,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Navbar */
-.navbar-custom { /* Renamed to avoid bootstrap conflict if we used .navbar */
+.navbar-custom {
+  /* Renamed to avoid bootstrap conflict if we used .navbar */
   background: hsl(var(--card));
   border-bottom: 1px solid hsl(var(--border));
   position: sticky;
@@ -240,7 +247,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9375rem;
   font-weight: 500;
   transition: all 0.2s;
-  text-decoration: none; /* In case we use <a> tags */
+  text-decoration: none;
+  /* In case we use <a> tags */
   display: inline-block;
 }
 
@@ -274,7 +282,8 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.75rem;
   transition: all 0.2s;
   box-shadow: 0 2px 8px hsl(var(--foreground) / 0.04);
-  text-decoration: none; /* Link reset */
+  text-decoration: none;
+  /* Link reset */
   color: inherit;
 }
 
@@ -342,5 +351,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Reusable Utilities */
 .text-muted-foreground {
-    color: hsl(var(--muted-foreground));
+  color: hsl(var(--muted-foreground));
+}
+
+/* Responsive Border for About Page Split */
+@media (min-width: 768px) {
+  .border-md-end {
+    border-right: 1px solid hsl(var(--border));
+  }
 }
