@@ -464,7 +464,8 @@ h6 {
   .border-md-end {
     border-right: 1px solid hsl(var(--border));
   }
-}
+}}
+
 /* Progress Page Stats */
 .progress-card {
   background: hsl(var(--card));

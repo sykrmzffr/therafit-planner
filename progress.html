@@ -121,9 +121,11 @@
 
             <!-- ================= COMPLETED HISTORY ================= -->
             <section class="mt-5">
+                <div class="mx-auto" style="max-width:1100px">
                 <h4 class="mb-3">Completed Exercises</h4>
                 <ul id="history-list" class="list-group"></ul>
                 <p id="empty-history" class="text-muted mt-3 d-none">No completed exercises yet.</p>
+                </div>
             </section>
             <br><br>
             <div class="d-flex gap-2 justify-content-center no-print">
@@ -294,12 +296,17 @@
                 localStorage.removeItem('selected-plan');
                 location.reload();
             });
-
-
         });
     </script>
 
-
+        <!-- Adding footer -->
+    <div id="footer"></div>
+    <script>
+        fetch("footer.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            });
+    </script>
 </body>
-
 </html>
