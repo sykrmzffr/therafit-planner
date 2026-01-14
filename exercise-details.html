@@ -56,8 +56,8 @@
                 </header>
 
                 <div class="exercise-detail-image mb-4">
-                    <img id="ex-image" src="" alt="Exercise demonstration" class="img-fluid rounded" 
-                    style="height:600px; object-fit:cover;">
+                    <img id="ex-image" src="" alt="Exercise demonstration" class="img-fluid rounded"
+                        style="height:600px; object-fit:cover;">
                 </div>
 
                 <!-- Instructions -->
@@ -141,7 +141,9 @@
                     <div class="timer">
                         <div class="timer-display">
                             <div id="timer-progress" class="timer-progress" style="width: 0%"></div>
-                            <span id="timer-text" class="timer-text" style="font-size:4rem; font-weight:700; letter-spacing:2px; color: rgb(239, 177, 70);"> 0:00</span>
+                            <span id="timer-text" class="timer-text"
+                                style="font-size:4rem; font-weight:700; letter-spacing:2px; color: rgb(239, 177, 70);">
+                                0:00</span>
                         </div>
 
                         <div class="timer-controls justify-content-center d-flex gap-2">
@@ -248,7 +250,7 @@
                     img.className = 'img-fluid rounded';
                     img.style.width = '100%';
                     img.style.height = '280px';      // SAME height for all
-                    img.style.objectFit = 'cover';   
+                    img.style.objectFit = 'cover';
                     imgCol.appendChild(img);
                 }
                 // Assemble
@@ -319,15 +321,22 @@
         });
     </script>
 
-    <!-- Adding footer -->
-    <div id="footer"></div>
-    <script>
-        fetch("footer.html")
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById("footer").innerHTML = data;
-            });
-    </script>
+    <footer class="bg-teal-400 text-white mt-5">
+        <div class="container py-4 text-center">
+            <p class="mb-1 fw-semibold">TheraFit Planner</p>
+            <p class="mb-2 small">
+                Contact: support@therafit.com | +60 12-345 6789
+            </p>
+            <p class="mb-0 small">
+                <a href="about.html" class="text-white text-decoration-underline">
+                    About Us
+                </a>
+                <span class="mx-2">|</span>
+                © 2026 TheraFit. All rights reserved.
+            </p>
+        </div>
+    </footer>
 
 </body>
+
 </html>
