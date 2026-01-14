@@ -459,12 +459,14 @@ h6 {
 
 .exercise-card:hover .exercise-card-img {
   transform: scale(1.05);
+}
+
 /* Responsive Border for About Page Split */
 @media (min-width: 768px) {
   .border-md-end {
     border-right: 1px solid hsl(var(--border));
   }
-}}
+}
 
 /* Progress Page Stats */
 .progress-card {
