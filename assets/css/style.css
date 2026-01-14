@@ -487,9 +487,30 @@ h6 {
 }
 
 .progress-number {
-  font-size: 2rem;
-  font-weight: 700;
   line-height: 1;
   color: hsl(var(--foreground));
   margin-bottom: 0.25rem;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .navbar-custom {
+    position: static !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0;
+  }
+
+  .navbar-links {
+    display: none !important;
+  }
+
+  /* Ensure background colors print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
