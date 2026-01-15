@@ -29,6 +29,10 @@
                     <a href="index.html" class="nav-link">Exercises</a>
                     <a href="progress.html" class="nav-link active">Progress</a>
                     <a href="about.html" class="nav-link">About</a>
+                    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2"
+                        onclick="ThemeManager.cycleTheme()">
+                        ☀️ Default
+                    </button>
                 </div>
             </div>
         </nav>
@@ -144,6 +148,7 @@
     <!-- Shared Data -->
     <script src="assets/js/exercises.js"></script>
     <script src="assets/js/progress.js"></script>
+    <script src="assets/js/theme.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

@@ -29,6 +29,10 @@
                     <a href="index.html" class="nav-link">Exercises</a>
                     <a href="progress.html" class="nav-link">Progress</a>
                     <a href="about.html" class="nav-link">About</a>
+                    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2"
+                        onclick="ThemeManager.cycleTheme()">
+                        ☀️ Default
+                    </button>
                 </div>
             </div>
         </nav>
@@ -159,7 +163,7 @@
                 </section>
 
                 <!-- Completion -->
-                <section class="exercise-completion text-center p-4 bg-light rounded">
+                <section class="exercise-completion text-center p-4 card rounded">
                     <div id="completion-action">
                         <button id="btn-mark-complete" class="btn btn-success btn-lg">
                             ✓ Mark as Completed
@@ -182,6 +186,7 @@
     <script src="assets/js/exercises.js"></script>
     <script src="assets/js/progress.js"></script>
     <script src="assets/js/timer.js"></script>
+    <script src="assets/js/theme.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
