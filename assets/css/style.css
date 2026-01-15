@@ -169,9 +169,7 @@ h6 {
   color: hsl(var(--primary));
 }
 
-.brand-icon {
-  font-size: 1.5rem;
-}
+
 
 .navbar-links {
   display: flex;
@@ -361,14 +359,7 @@ h6 {
   vertical-align: above;
 }
 
-.exercise-card {
-  background-color: #f1f8ff;
-  border: 1px solid #d0e3ff;
-}
 
-.exercise-card:hover {
-  background-color: #e3f2fd;
-}
 
 .bg-teal-400 {
   background-color: #2abeb0;
@@ -376,10 +367,7 @@ h6 {
 
 /* physio */
 
-.physio-guidance .card {
-  border-radius: 16px;
-  background: #ffffff;
-}
+
 
 .physio-guidance h2 {
   letter-spacing: 0.3px;
