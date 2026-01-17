@@ -16,8 +16,10 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Helps the browser load fonts faster by connecting early to Google’s font -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Import Fonts -->
 </head>
 
 <body>
@@ -82,52 +84,78 @@
 
   <!-- Page Logic -->
   <script>
+    // Wait for the DOM to be fully loaded before running the script
     document.addEventListener('DOMContentLoaded', () => {
+      // Get the container element where exercises will be displayed
       const grid = document.getElementById('exercise-grid');
+      // Get the container element for category filter buttons
       const filtersContainer = document.getElementById('category-filters');
+      // Get the element to show when no exercises match the filter
       const emptyState = document.getElementById('empty-state');
+      // Get the span element to display the count of currently showing exercises
       const showingCount = document.getElementById('showing-count');
+      // Get the span element to display the total number of exercises
       const totalCount = document.getElementById('total-count');
 
+      // Initialize the current category filter to 'all' by default
       let currentCategory = 'all';
 
-      // Generate unique categories from exercises
+      // Generate a list of unique categories based on the exercises data
       const categories = [
-        { id: 'all', label: 'All' }, // always include "All"
+        { id: 'all', label: 'All' }, // Manually add the "All" category first
+        // Create a Set of unique category IDs from the exercises array
         ...[...new Set(exercises.map(ex => ex.category))].map(catId => {
+          // Find the first exercise with this category ID to get its label
           const ex = exercises.find(e => e.category === catId);
+          // Return an object with the category ID and its display label
           return { id: catId, label: ex.categoryLabel };
         })
       ];
 
-      // Initialize Stats
+      // Display the total number of exercises in the UI
       totalCount.textContent = exercises.length;
 
-      // Render Filters
+      // Loop through each category to create filter buttons
       categories.forEach(cat => {
+        // Create a new button element
         const btn = document.createElement('button');
+        // Set the class name, adding 'active' if it's the 'all' category
         btn.className = `filter-btn ${cat.id === 'all' ? 'active' : ''}`;
+        // Set the text content of the button to the category label
         btn.textContent = cat.label;
+        // Store the category ID in a data attribute
         btn.dataset.id = cat.id;
+        // Set the click handler to call setCategory with this category's ID
         btn.onclick = () => setCategory(cat.id);
+        // Add the button to the filters container
         filtersContainer.appendChild(btn);
       });
 
-      // Render Exercises
+      // Function to render the exercises based on the current category
       function renderExercises() {
+        // Clear the current content of the exercise grid
         grid.innerHTML = '';
+        // Filter the exercises array based on the current category
         const filtered = currentCategory === 'all'
-          ? exercises
-          : exercises.filter(ex => ex.category === currentCategory);
+          ? exercises // If 'all', use all exercises
+          : exercises.filter(ex => ex.category === currentCategory); // Otherwise, filter by category
 
+        // Check if there are any exercises to display
         if (filtered.length === 0) {
+          // If no exercises, show the empty state message
           emptyState.classList.remove('d-none');
         } else {
+          // If there are exercises, hide the empty state message
           emptyState.classList.add('d-none');
+          // Loop through each filtered exercise to create its card
           filtered.forEach(ex => {
+            // Create a new anchor element for the exercise card
             const card = document.createElement('a');
+            // Set the link to the exercise details page with the exercise ID
             card.href = `exercise-details.html?id=${ex.id}`;
+            // Set the class name for styling
             card.className = 'exercise-card';
+            // Set the inner HTML of the card with exercise details
             card.innerHTML = `
                 <div class="exercise-card-header">
                     <span class="category-badge category-${ex.category}">
@@ -145,25 +173,32 @@
                     <span class="btn btn-sm btn-secondary w-100">Start</span>
                 </div>
             `;
+            // Add the card to the grid container
             grid.appendChild(card);
           });
         }
+        // Update the displayed count of showing exercises
         showingCount.textContent = filtered.length;
       }
 
+      // Function to handle category selection
       function setCategory(id) {
+        // Update the current category variable
         currentCategory = id;
 
-        // Update buttons
+        // Loop through all filter buttons to update their active state
         document.querySelectorAll('.filter-btn').forEach(btn => {
+          // If the button's ID matches the selected ID, add the 'active' class
           if (btn.dataset.id === id) btn.classList.add('active');
+          // Otherwise, remove the 'active' class
           else btn.classList.remove('active');
         });
 
+        // Re-render the exercises grid with the new filter
         renderExercises();
       }
 
-      // Initial Render
+      // Perform the initial render of exercises when the page loads
       renderExercises();
     });
   </script>
